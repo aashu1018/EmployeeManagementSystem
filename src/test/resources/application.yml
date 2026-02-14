@@ -1,0 +1,54 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: employee-management-system-test
+
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+rabbitmq:
+  exchange:
+    name: ems.notification.exchange
+  queue:
+    employee: ems.employee.notification.queue
+    leave: ems.leave.notification.queue
+  routing-key:
+    employee: ems.employee.notification
+    leave: ems.leave.notification
+
+logging:
+  level:
+    root: INFO
+    com.ems: DEBUG
+
+app:
+  security:
+    admin:
+      username: admin
+      password: admin123
+    user:
+      username: user
+      password: user123

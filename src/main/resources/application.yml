@@ -1,0 +1,63 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: employee-management-system
+
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:ems_db}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    connection-timeout: 10000
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    date-format: yyyy-MM-dd
+
+# RabbitMQ Queue Configuration
+rabbitmq:
+  exchange:
+    name: ems.notification.exchange
+  queue:
+    employee: ems.employee.notification.queue
+    leave: ems.leave.notification.queue
+  routing-key:
+    employee: ems.employee.notification
+    leave: ems.leave.notification
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.ems: DEBUG
+    org.springframework.amqp: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# Application Security
+app:
+  security:
+    admin:
+      username: ${ADMIN_USERNAME:admin}
+      password: ${ADMIN_PASSWORD:admin123}
+    user:
+      username: ${USER_USERNAME:user}
+      password: ${USER_PASSWORD:user123}

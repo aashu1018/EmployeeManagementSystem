@@ -1,0 +1,473 @@
+{
+  "info": {
+    "name": "Employee Management System",
+    "description": "Complete API collection for Employee Management System with RabbitMQ notifications",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "basic",
+    "basic": [
+      { "key": "username", "value": "admin", "type": "string" },
+      { "key": "password", "value": "admin123", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "adminUser", "value": "admin" },
+    { "key": "adminPass", "value": "admin123" },
+    { "key": "normalUser", "value": "user" },
+    { "key": "normalPass", "value": "user123" }
+  ],
+  "item": [
+    {
+      "name": "Department Management",
+      "item": [
+        {
+          "name": "Create Department - Engineering",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"departmentName\": \"Engineering\",\n  \"location\": \"Building A, Floor 3\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/departments", "host": ["{{baseUrl}}"], "path": ["api", "departments"] }
+          }
+        },
+        {
+          "name": "Create Department - Human Resources",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"departmentName\": \"Human Resources\",\n  \"location\": \"Building B, Floor 1\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/departments", "host": ["{{baseUrl}}"], "path": ["api", "departments"] }
+          }
+        },
+        {
+          "name": "Create Department - Marketing",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"departmentName\": \"Marketing\",\n  \"location\": \"Building A, Floor 2\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/departments", "host": ["{{baseUrl}}"], "path": ["api", "departments"] }
+          }
+        },
+        {
+          "name": "List All Departments",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/api/departments", "host": ["{{baseUrl}}"], "path": ["api", "departments"] }
+          }
+        },
+        {
+          "name": "Get Department Employees",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/api/departments/1/employees", "host": ["{{baseUrl}}"], "path": ["api", "departments", "1", "employees"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Employee Management",
+      "item": [
+        {
+          "name": "Create Employee - John Smith",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"John Smith\",\n  \"email\": \"john.smith@company.com\",\n  \"departmentId\": 1,\n  \"salary\": 85000.00,\n  \"joiningDate\": \"2023-01-15\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/employees", "host": ["{{baseUrl}}"], "path": ["api", "employees"] }
+          }
+        },
+        {
+          "name": "Create Employee - Jane Doe",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Jane Doe\",\n  \"email\": \"jane.doe@company.com\",\n  \"departmentId\": 1,\n  \"salary\": 92000.00,\n  \"joiningDate\": \"2022-06-20\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/employees", "host": ["{{baseUrl}}"], "path": ["api", "employees"] }
+          }
+        },
+        {
+          "name": "Create Employee - Bob Johnson",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Bob Johnson\",\n  \"email\": \"bob.johnson@company.com\",\n  \"departmentId\": 2,\n  \"salary\": 75000.00,\n  \"joiningDate\": \"2023-03-10\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/employees", "host": ["{{baseUrl}}"], "path": ["api", "employees"] }
+          }
+        },
+        {
+          "name": "List All Employees (Page 0, Sort by Name ASC)",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/employees?page=0&sortBy=name&sortDir=asc",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "employees"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "sortBy", "value": "name" },
+                { "key": "sortDir", "value": "asc" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List Employees by Department",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/employees?departmentId=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "employees"],
+              "query": [
+                { "key": "departmentId", "value": "1" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List Employees (Sort by Joining Date DESC)",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/employees?sortBy=joiningDate&sortDir=desc",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "employees"],
+              "query": [
+                { "key": "sortBy", "value": "joiningDate" },
+                { "key": "sortDir", "value": "desc" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Employee by ID",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/api/employees/1", "host": ["{{baseUrl}}"], "path": ["api", "employees", "1"] }
+          }
+        },
+        {
+          "name": "Update Employee",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"John Smith Updated\",\n  \"email\": \"john.smith@company.com\",\n  \"departmentId\": 1,\n  \"salary\": 90000.00,\n  \"joiningDate\": \"2023-01-15\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/employees/1", "host": ["{{baseUrl}}"], "path": ["api", "employees", "1"] }
+          }
+        },
+        {
+          "name": "Delete Employee",
+          "request": {
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/api/employees/3", "host": ["{{baseUrl}}"], "path": ["api", "employees", "3"] }
+          }
+        },
+        {
+          "name": "List Employees (As USER role)",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{normalUser}}" },
+                { "key": "password", "value": "{{normalPass}}" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/api/employees", "host": ["{{baseUrl}}"], "path": ["api", "employees"] }
+          }
+        },
+        {
+          "name": "Create Employee (As USER - Should Fail 403)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{normalUser}}" },
+                { "key": "password", "value": "{{normalPass}}" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Test User\",\n  \"email\": \"test@company.com\",\n  \"departmentId\": 1,\n  \"salary\": 50000.00,\n  \"joiningDate\": \"2024-01-01\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/employees", "host": ["{{baseUrl}}"], "path": ["api", "employees"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Leave Management",
+      "item": [
+        {
+          "name": "Submit Leave Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{normalUser}}" },
+                { "key": "password", "value": "{{normalPass}}" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeId\": 1,\n  \"startDate\": \"2024-06-15\",\n  \"endDate\": \"2024-06-20\",\n  \"reason\": \"Family vacation\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/leaves", "host": ["{{baseUrl}}"], "path": ["api", "leaves"] }
+          }
+        },
+        {
+          "name": "Submit Leave Request (Invalid Dates - Should Fail)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{normalUser}}" },
+                { "key": "password", "value": "{{normalPass}}" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeId\": 1,\n  \"startDate\": \"2024-06-20\",\n  \"endDate\": \"2024-06-15\",\n  \"reason\": \"Invalid dates\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/leaves", "host": ["{{baseUrl}}"], "path": ["api", "leaves"] }
+          }
+        },
+        {
+          "name": "Approve Leave Request",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"APPROVED\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/leaves/1/status", "host": ["{{baseUrl}}"], "path": ["api", "leaves", "1", "status"] }
+          }
+        },
+        {
+          "name": "Reject Leave Request",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{adminUser}}" },
+                { "key": "password", "value": "{{adminPass}}" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"REJECTED\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/leaves/2/status", "host": ["{{baseUrl}}"], "path": ["api", "leaves", "2", "status"] }
+          }
+        },
+        {
+          "name": "Update Leave Status (As USER - Should Fail 403)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{normalUser}}" },
+                { "key": "password", "value": "{{normalPass}}" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"APPROVED\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/leaves/1/status", "host": ["{{baseUrl}}"], "path": ["api", "leaves", "1", "status"] }
+          }
+        },
+        {
+          "name": "Get Employee Leaves",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                { "key": "username", "value": "{{normalUser}}" },
+                { "key": "password", "value": "{{normalPass}}" }
+              ]
+            },
+            "url": { "raw": "{{baseUrl}}/api/leaves/employee/1", "host": ["{{baseUrl}}"], "path": ["api", "leaves", "employee", "1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "Application Health",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/actuator/health", "host": ["{{baseUrl}}"], "path": ["actuator", "health"] }
+          }
+        }
+      ]
+    }
+  ]
+}
