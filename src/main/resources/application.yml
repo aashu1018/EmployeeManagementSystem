@@ -1,3 +1,4 @@
+# Defaults are for LOCAL run: MySQL and RabbitMQ on localhost. Override via env vars when using Docker.
 server:
   port: 8080
 

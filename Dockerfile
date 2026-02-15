@@ -1,3 +1,7 @@
+# Optional: Used when building the app container for Docker Compose.
+# For local development (no Docker), run: mvn spring-boot:run
+# See README "Running without Docker" section.
+
 # Stage 1: Build
 FROM maven:3.8.6-openjdk-11-slim AS build
 WORKDIR /app

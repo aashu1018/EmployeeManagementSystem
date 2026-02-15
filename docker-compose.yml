@@ -1,3 +1,10 @@
+# =============================================================================
+# OPTIONAL: Use only when Docker/WSL is working.
+# For local development without Docker: install MySQL and RabbitMQ on your
+# machine and run the app with: mvn spring-boot:run
+# See README section "Running without Docker (local MySQL & RabbitMQ)".
+# =============================================================================
+
 version: '3.8'
 
 services:

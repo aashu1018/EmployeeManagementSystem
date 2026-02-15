@@ -1,6 +1,6 @@
 # Employee Management System
 
-A comprehensive Spring Boot application for employee management with department organization, leave request handling, and a RabbitMQ-based notification system, all containerized with Docker.
+A comprehensive Spring Boot application for employee management with department organization, leave request handling, and a RabbitMQ-based notification system. Can be run **locally** (MySQL + RabbitMQ on your machine) or with Docker when available.
 
 ## Architecture Overview
 
@@ -45,13 +45,91 @@ A comprehensive Spring Boot application for employee management with department 
 | JaCoCo         | 0.8.8       | Code coverage              |
 | Lombok         | Latest      | Boilerplate reduction      |
 
-## Prerequisites
+## Prerequisites (local run)
 
-- **Docker** & **Docker Compose** (recommended approach)
-- OR **Java 11+**, **Maven 3.x**, **MySQL 8**, **RabbitMQ 3.x** (local setup)
+- **Java 11+**
+- **Maven 3.x**
+- **MySQL 8** (installed and running on your machine)
+- **RabbitMQ 3.x** (installed and running on your machine)
 
-## Quick Start (Docker)
+---
 
+## Running without Docker (local MySQL & RabbitMQ)
+
+Use this when Docker/WSL is not working. The app expects **MySQL** and **RabbitMQ** on **localhost** with default ports.
+
+### 1. Install and start MySQL (Windows)
+
+- Download MySQL 8 from [mysql.com](https://dev.mysql.com/downloads/installer/) or use another installer (e.g. XAMPP).
+- Install and start the MySQL service.
+- Ensure it listens on **port 3306**.
+- Create a user or use **root** with password **root** (or set `MYSQL_USER` / `MYSQL_PASSWORD` when running the app).
+- The app will create the database **ems_db** automatically on first run (`createDatabaseIfNotExist=true`).  
+  Or create it manually:
+  ```sql
+  CREATE DATABASE IF NOT EXISTS ems_db;
+  ```
+
+### 2. Install and start RabbitMQ (Windows)
+
+- Install **Erlang** from [erlang.org](https://www.erlang.org/downloads) (required by RabbitMQ).
+- Download RabbitMQ from [rabbitmq.com](https://www.rabbitmq.com/download.html) and install.
+- Start the RabbitMQ service (e.g. from Services or from installation directory).
+- Enable the management plugin (optional, for UI):
+  ```bash
+  rabbitmq-plugins enable rabbitmq_management
+  ```
+- Default user **guest** / **guest** works for localhost connections.
+
+### 3. Run the application
+
+From the project root:
+
+```bash
+mvn clean install
+mvn spring-boot:run
+```
+
+No extra env vars needed: the app uses **localhost**, port **3306** (MySQL), port **5672** (RabbitMQ), user **root** / **root** (MySQL), **guest** / **guest** (RabbitMQ).
+
+### 4. Access the application
+
+- **API**: http://localhost:8080  
+- **RabbitMQ Management** (if plugin enabled): http://localhost:15672 — login **guest** / **guest**
+
+### 5. Override defaults (optional)
+
+If your local MySQL/RabbitMQ use different credentials or ports, set environment variables before `mvn spring-boot:run`:
+
+- `MYSQL_HOST`, `MYSQL_PORT` (default 3306), `MYSQL_DB` (default ems_db), `MYSQL_USER`, `MYSQL_PASSWORD`
+- `RABBITMQ_HOST`, `RABBITMQ_PORT` (default 5672), `RABBITMQ_USER`, `RABBITMQ_PASSWORD`
+
+Example (PowerShell):
+
+```powershell
+$env:MYSQL_USER="root"; $env:MYSQL_PASSWORD="your_password"; mvn spring-boot:run
+```
+
+### 6. Run tests
+
+```bash
+mvn test
+```
+
+### 7. Generate test coverage report
+
+```bash
+mvn test jacoco:report
+# Report: target/site/jacoco/index.html
+```
+
+---
+
+## Optional: Running with Docker
+
+Use this only when Docker and WSL are working. Otherwise use the section above.
+
+<!--
 ### 1. Clone the repository
 ```bash
 git clone <repository-url>
@@ -81,40 +159,13 @@ docker-compose down
 ```bash
 docker-compose down -v
 ```
+-->
 
-## Local Development Setup
+When Docker is available:
 
-### 1. Start MySQL
-```bash
-# Using Docker for MySQL only
-docker run -d --name ems-mysql -p 3306:3306 \
-  -e MYSQL_ROOT_PASSWORD=root \
-  -e MYSQL_DATABASE=ems_db \
-  mysql:8.0
-```
-
-### 2. Start RabbitMQ
-```bash
-docker run -d --name ems-rabbitmq -p 5672:5672 -p 15672:15672 \
-  rabbitmq:3-management
-```
-
-### 3. Build and run the application
-```bash
-mvn clean install
-mvn spring-boot:run
-```
-
-### 4. Run tests
-```bash
-mvn test
-```
-
-### 5. Generate test coverage report
-```bash
-mvn test jacoco:report
-# Report available at: target/site/jacoco/index.html
-```
+1. From project root: `docker-compose up --build -d`
+2. App: http://localhost:8080 — RabbitMQ Management: http://localhost:15672 (guest/guest)
+3. Stop: `docker-compose down` (add `-v` to remove volumes)
 
 ## API Documentation
 
