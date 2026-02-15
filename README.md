@@ -1,6 +1,6 @@
 # Employee Management System
 
-A comprehensive Spring Boot application for employee management with department organization, leave request handling, and a RabbitMQ-based notification system. Can be run **locally** (MySQL + RabbitMQ on your machine) or with Docker when available.
+A comprehensive Spring Boot application for employee management with department organization, leave request handling, and a RabbitMQ-based notification system. Can be run **locally** (MySQL + RabbitMQ on your machine) or with Docker.
 
 ## Architecture Overview
 
