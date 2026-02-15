@@ -1,9 +1,5 @@
 package com.ems.employeemanagementsystem.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -19,10 +15,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "employees")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Employee {
 
     @Id
@@ -59,6 +51,64 @@ public class Employee {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @Builder.Default
     private List<LeaveRequest> leaveRequests = new ArrayList<>();
+
+    public Employee() {
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private Long id;
+        private String fullName;
+        private String email;
+        private Department department;
+        private BigDecimal salary;
+        private LocalDate joiningDate;
+        private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
+
+        public Builder id(Long id) { this.id = id; return this; }
+        public Builder createdAt(LocalDateTime createdAt) { this.createdAt = createdAt; return this; }
+        public Builder updatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; return this; }
+        public Builder fullName(String fullName) { this.fullName = fullName; return this; }
+        public Builder email(String email) { this.email = email; return this; }
+        public Builder department(Department department) { this.department = department; return this; }
+        public Builder salary(BigDecimal salary) { this.salary = salary; return this; }
+        public Builder joiningDate(LocalDate joiningDate) { this.joiningDate = joiningDate; return this; }
+
+        public Employee build() {
+            Employee e = new Employee();
+            e.setId(this.id);
+            e.setFullName(this.fullName);
+            e.setEmail(this.email);
+            e.setDepartment(this.department);
+            e.setSalary(this.salary);
+            e.setJoiningDate(this.joiningDate);
+            e.setCreatedAt(this.createdAt);
+            e.setUpdatedAt(this.updatedAt);
+            return e;
+        }
+    }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public Department getDepartment() { return department; }
+    public void setDepartment(Department department) { this.department = department; }
+    public BigDecimal getSalary() { return salary; }
+    public void setSalary(BigDecimal salary) { this.salary = salary; }
+    public LocalDate getJoiningDate() { return joiningDate; }
+    public void setJoiningDate(LocalDate joiningDate) { this.joiningDate = joiningDate; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+    public List<LeaveRequest> getLeaveRequests() { return leaveRequests; }
+    public void setLeaveRequests(List<LeaveRequest> leaveRequests) { this.leaveRequests = leaveRequests != null ? leaveRequests : new ArrayList<>(); }
 }

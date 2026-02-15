@@ -1,17 +1,9 @@
 package com.ems.employeemanagementsystem.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> {
 
@@ -19,6 +11,16 @@ public class ApiResponse<T> {
     private String message;
     private T data;
     private LocalDateTime timestamp;
+
+    public ApiResponse() {
+    }
+
+    public ApiResponse(boolean success, String message, T data, LocalDateTime timestamp) {
+        this.success = success;
+        this.message = message;
+        this.data = data;
+        this.timestamp = timestamp;
+    }
 
     public static <T> ApiResponse<T> success(T data, String message) {
         return ApiResponse.<T>builder()
@@ -40,4 +42,35 @@ public class ApiResponse<T> {
                 .timestamp(LocalDateTime.now())
                 .build();
     }
+
+    public static <T> Builder<T> builder() {
+        return new Builder<>();
+    }
+
+    public static final class Builder<T> {
+        private boolean success;
+        private String message;
+        private T data;
+        private LocalDateTime timestamp;
+
+        private Builder() {}
+
+        public Builder<T> success(boolean success) { this.success = success; return this; }
+        public Builder<T> message(String message) { this.message = message; return this; }
+        public Builder<T> data(T data) { this.data = data; return this; }
+        public Builder<T> timestamp(LocalDateTime timestamp) { this.timestamp = timestamp; return this; }
+
+        public ApiResponse<T> build() {
+            return new ApiResponse<>(success, message, data, timestamp);
+        }
+    }
+
+    public boolean isSuccess() { return success; }
+    public void setSuccess(boolean success) { this.success = success; }
+    public String getMessage() { return message; }
+    public void setMessage(String message) { this.message = message; }
+    public T getData() { return data; }
+    public void setData(T data) { this.data = data; }
+    public LocalDateTime getTimestamp() { return timestamp; }
+    public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
 }

@@ -1,9 +1,5 @@
 package com.ems.employeemanagementsystem.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -14,10 +10,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "departments")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Department {
 
     @Id
@@ -37,6 +29,59 @@ public class Department {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @Builder.Default
     private List<Employee> employees = new ArrayList<>();
+
+    public Department() {
+    }
+
+    public Department(Long id, String departmentName, String location, LocalDateTime createdAt, List<Employee> employees) {
+        this.id = id;
+        this.departmentName = departmentName;
+        this.location = location;
+        this.createdAt = createdAt;
+        this.employees = employees != null ? employees : new ArrayList<>();
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private Long id;
+        private String departmentName;
+        private String location;
+        private LocalDateTime createdAt;
+
+        public Builder id(Long id) { this.id = id; return this; }
+        public Builder createdAt(LocalDateTime createdAt) { this.createdAt = createdAt; return this; }
+        public Builder departmentName(String departmentName) {
+            this.departmentName = departmentName;
+            return this;
+        }
+
+        public Builder location(String location) {
+            this.location = location;
+            return this;
+        }
+
+        public Department build() {
+            Department d = new Department();
+            d.setId(this.id);
+            d.setDepartmentName(this.departmentName);
+            d.setLocation(this.location);
+            d.setCreatedAt(this.createdAt);
+            return d;
+        }
+    }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getDepartmentName() { return departmentName; }
+    public void setDepartmentName(String departmentName) { this.departmentName = departmentName; }
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public List<Employee> getEmployees() { return employees; }
+    public void setEmployees(List<Employee> employees) { this.employees = employees != null ? employees : new ArrayList<>(); }
 }

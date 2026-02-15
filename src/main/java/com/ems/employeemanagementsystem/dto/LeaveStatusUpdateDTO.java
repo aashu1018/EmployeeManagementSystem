@@ -1,17 +1,21 @@
 package com.ems.employeemanagementsystem.dto;
 
 import com.ems.employeemanagementsystem.entity.enums.LeaveStatus;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class LeaveStatusUpdateDTO {
 
     @NotNull(message = "Status is required")
     private LeaveStatus status;
+
+    public LeaveStatusUpdateDTO() {
+    }
+
+    public LeaveStatusUpdateDTO(LeaveStatus status) {
+        this.status = status;
+    }
+
+    public LeaveStatus getStatus() { return status; }
+    public void setStatus(LeaveStatus status) { this.status = status; }
 }
