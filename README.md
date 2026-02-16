@@ -32,9 +32,9 @@ A comprehensive Spring Boot application for employee management with department 
 
 ## Tech Stack
 
-| Technology      | Version      | Purpose                    |
+| Technology     | Version     | Purpose                    |
 |----------------|-------------|----------------------------|
-| Java           | 11+         | Programming language       |
+| Java           | 11          | Programming language       |
 | Spring Boot    | 2.7.18      | Application framework      |
 | Spring Security| 5.x         | Authentication & Authorization |
 | Spring AMQP    | 2.x         | RabbitMQ messaging         |
